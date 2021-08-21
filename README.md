@@ -23,6 +23,14 @@ pnpm run dev -- --open
 
 ## Building
 
+Before creating a production version of your app, build adapter for deno environment.
+
+```bash
+cd internal/adapter-deno
+pnpm install
+pnpm prepublishOnly
+```
+
 Try command. `Use deno for run code. Don't use nodejs`
 
 ```bash
