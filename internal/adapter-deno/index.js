@@ -60,13 +60,13 @@ export default function ({
 			utils.copy(files, '.svelte-kit/deno');
 			writeFileSync(
 				'.svelte-kit/deno/env.js',
-				`export const path = Deno.env[${
+				`export const path = Deno.env.get(${
 					JSON.stringify(path_env)
-				}] ?? false;\nexport const hostname = Deno.env[${
+				}) ?? false;\nexport const hostname = Deno.env.get(${
 					JSON.stringify(host_env)
-				}] ?? '0.0.0.0';\nexport const port = Deno.env[${
+				}) ?? '0.0.0.0';\nexport const port = Deno.env.get(${
 					JSON.stringify(port_env)
-				}] ?? (!path && 3000);`
+				}) ?? (!path && 3000);`
 			);
 
 			/** @type {BuildOptions} */

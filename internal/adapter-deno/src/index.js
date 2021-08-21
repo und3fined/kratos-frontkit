@@ -14,6 +14,6 @@ console.log(
 );
 });
 
-instance.listen({ hostname, port });
+instance.listen({ hostname, port: parseInt(port, 10) });
 
 export { instance };
