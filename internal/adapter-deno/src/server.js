@@ -17,8 +17,10 @@ import {
 	Server,
 	serve,
 	isHttpError,
-	Status
+	Status,
+	HttpError
 } from './deps.ts';
+import logger from './utils/logger';
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const paths = {
@@ -40,22 +42,29 @@ function serveStatic(staticPath) {
 	 */
 	return async (ctx, next) => {
 		const pathname = ctx.request.url.pathname;
+		let allowNext = false;
 
 		if (pathname !== '/') {
 			try {
 				await serve(ctx, pathname, {
-					root: staticPath
+					root: staticPath,
+					immutable: true,
+					// extensions: ["json", "css", "html", "md", "js"],
 				});
 			} catch(err) {
-				if (isHttpError(err) && err.status !== Status.NotFound) {
-					throw err
+				if (isHttpError(err) && err.status === Status.NotFound) {
+					allowNext = true;
 				} else {
 					throw err;
 				}
 			}
+		} else {
+			allowNext = true;
 		}
 
-		await next();
+		if (allowNext) {
+			await next();
+		}
 	};
 }
 
@@ -121,28 +130,49 @@ export function createServer({ render }) {
 	const assets_handler = existsSync(paths.assets) ? serveStatic(paths.assets) : noop_handler;
 
 	/**
-	 * @param {any} _ctx
+	 * @param {any} ctx
 	 * @param {() => any} next
 	 */
-	const error_handler = async (_ctx, next) => {
+	const error_handler = async (ctx, next) => {
 		try {
 			await next();
-		} catch (err) {
-			if (isHttpError(err)) {
-				switch (err.status) {
-					case Status.NotFound:
-						break;
-					// handle other statuses
-				}
-			} else {
-				// rethrow if you can't handle the error
-				throw err;
+		  } catch (e) {
+			if (e instanceof HttpError) {
+			  // deno-lint-ignore no-explicit-any
+			  ctx.response.status = e.status;
+			  if (e.expose) {
+				ctx.response.body = `<!DOCTYPE html>
+					<html>
+					  <body>
+						<h1>${e.status} - ${e.message}</h1>
+					  </body>
+					</html>`;
+			  } else {
+				ctx.response.body = `<!DOCTYPE html>
+					<html>
+					  <body>
+						<h1>${e.status} - ${Status[e.status]}</h1>
+					  </body>
+					</html>`;
+			  }
+			} else if (e instanceof Error) {
+			  ctx.response.status = 500;
+			  ctx.response.body = `<!DOCTYPE html>
+					<html>
+					  <body>
+						<h1>500 - Internal Server Error</h1>
+					  </body>
+					</html>`;
+			  console.log("Unhandled Error:", e.message);
+			  console.log(e.stack);
 			}
-		}
+		  }
 	};
 
 	const server = new Server();
 
+	// Logger
+	server.use(logger);
 	server.use(error_handler);
 	server.use(assets_handler);
 	server.use(prerendered_handler);
