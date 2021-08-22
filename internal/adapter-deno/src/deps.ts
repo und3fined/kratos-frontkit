@@ -11,5 +11,3 @@
  */
 export { existsSync } from 'https://deno.land/std@0.105.0/fs/exists.ts';
 export { dirname, fromFileUrl, join } from 'https://deno.land/std@0.105.0/path/mod.ts';
-export { Application as Server, send as serveStatic, isHttpError, Status } from 'https://deno.land/x/oak@v9.0.0/mod.ts';
-export { info as log } from "https://deno.land/std@0.105.0/log/mod.ts";

@@ -9,16 +9,8 @@
  * -----
  * Copyright (c) 2021 und3fined.com
  */
-import {
-	dirname,
-	fromFileUrl,
-	join,
-	existsSync,
-	Server,
-	serve,
-	isHttpError,
-	Status
-} from './deps.ts';
+import { dirname, fromFileUrl, join, existsSync } from './deps.ts';
+import { Server, serveStatic, isHttpError, Status } from './oak.ts'
 import logger from './utils/logger.js';
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
@@ -40,7 +32,7 @@ const noopHandler = async (_ctx, next) => await next();
  * @param {string} staticPath
  * @returns
  */
-function serveStatic(staticPath) {
+function serveFiles(staticPath) {
 	/**
 	 * @param {any} ctx
 	 * @param {() => any} next
@@ -51,7 +43,7 @@ function serveStatic(staticPath) {
 
 		if (pathname !== '/') {
 			try {
-				await serve(ctx, pathname, {
+				await serveStatic(ctx, pathname, {
 					root: staticPath,
 					immutable: true
 					// extensions: ["json", "css", "html", "md", "js"],
@@ -129,8 +121,8 @@ function getRawBody(ctx) {
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createServer({ render }) {
-	const prerenderedHandler = existsSync(paths.prerendered) ? serveStatic(paths.prerendered) : noopHandler;
-	const assetsHandler = existsSync(paths.assets) ? serveStatic(paths.assets) : noopHandler;
+	const prerenderedHandler = existsSync(paths.prerendered) ? serveFiles(paths.prerendered) : noopHandler;
+	const assetsHandler = existsSync(paths.assets) ? serveFiles(paths.assets) : noopHandler;
 
 	/**
 	 * @param {any} ctx

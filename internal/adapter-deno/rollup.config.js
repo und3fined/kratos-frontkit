@@ -17,9 +17,10 @@ export default [
 			copy({
 				targets: [
 				  { src: 'src/deps.ts', dest: 'files' },
+				  { src: 'src/oak.ts', dest: 'files' },
 				]
 			})
 		],
-		external: ['../output/server/app.js', './env.js', './deps.ts', ...require('module').builtinModules]
+		external: ['../output/server/app.js', './env.js', './deps.ts', './oak.ts', ...require('module').builtinModules]
 	}
 ];
