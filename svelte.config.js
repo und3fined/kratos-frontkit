@@ -40,8 +40,9 @@ const config = {
 		vite: {
 			resolve: {
 				alias: {
-					$ui: resolve(__dirname, 'src/lib/ui'),
-					$utils: resolve(__dirname, 'src/lib/utils')
+					$components: resolve(__dirname, './src/lib/components'),
+					$ui: resolve(__dirname, './src/lib/ui'),
+					$utils: resolve(__dirname, './src/lib/utils')
 				}
 			}
 		}

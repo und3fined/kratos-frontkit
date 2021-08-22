@@ -23,10 +23,14 @@
 		"allowJs": true,
 		"checkJs": true,
 		"paths": {
+			"$components": ["src/lib/components"],
+			"$components/*": ["src/lib/components/*"],
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"],
 			"$ui": ["src/lib/ui"],
-			"$ui/*": ["src/lib/ui/*"]
+			"$ui/*": ["src/lib/ui/*"],
+			"$utils": ["src/lib/utils"],
+			"$utils/*": ["src/lib/utils/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
