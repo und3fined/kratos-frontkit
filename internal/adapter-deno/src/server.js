@@ -17,10 +17,9 @@ import {
 	Server,
 	serve,
 	isHttpError,
-	Status,
-	HttpError
+	Status
 } from './deps.ts';
-import logger from './utils/logger';
+import logger from './utils/logger.ts';
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const paths = {
@@ -28,7 +27,13 @@ const paths = {
 	prerendered: join(__dirname, '/prerendered')
 };
 
-const noop_handler = async (/** @type {any} */ _ctx, /** @type {() => any} */ next) => await next();
+/**
+ *
+ * @param {any} _ctx
+ * @param {() => any} next
+ * @returns
+ */
+const noopHandler = async (_ctx, next) => await next();
 
 /**
  *
@@ -48,10 +53,10 @@ function serveStatic(staticPath) {
 			try {
 				await serve(ctx, pathname, {
 					root: staticPath,
-					immutable: true,
+					immutable: true
 					// extensions: ["json", "css", "html", "md", "js"],
 				});
-			} catch(err) {
+			} catch (err) {
 				if (isHttpError(err) && err.status === Status.NotFound) {
 					allowNext = true;
 				} else {
@@ -111,7 +116,7 @@ function serveMain(render) {
  * @param {any} ctx
  * @returns {Promise<any>}
  */
-async function getRawBody(ctx) {
+function getRawBody(ctx) {
 	if (ctx.request.hasBody) {
 		return ctx.request.body();
 	}
@@ -124,58 +129,55 @@ async function getRawBody(ctx) {
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createServer({ render }) {
-	const prerendered_handler = existsSync(paths.prerendered)
-		? serveStatic(paths.prerendered)
-		: noop_handler;
-	const assets_handler = existsSync(paths.assets) ? serveStatic(paths.assets) : noop_handler;
+	const prerenderedHandler = existsSync(paths.prerendered) ? serveStatic(paths.prerendered) : noopHandler;
+	const assetsHandler = existsSync(paths.assets) ? serveStatic(paths.assets) : noopHandler;
 
 	/**
 	 * @param {any} ctx
 	 * @param {() => any} next
 	 */
-	const error_handler = async (ctx, next) => {
+	const errorHandler = async (ctx, next) => {
 		try {
 			await next();
-		  } catch (e) {
-			if (e instanceof HttpError) {
-			  // deno-lint-ignore no-explicit-any
-			  ctx.response.status = e.status;
-			  if (e.expose) {
-				ctx.response.body = `<!DOCTYPE html>
+		} catch (e) {
+			if (isHttpError(e)) {
+				ctx.response.status = e.status;
+				if (e.expose) {
+					ctx.response.body = `<!DOCTYPE html>
 					<html>
 					  <body>
 						<h1>${e.status} - ${e.message}</h1>
 					  </body>
 					</html>`;
-			  } else {
-				ctx.response.body = `<!DOCTYPE html>
+				} else {
+					ctx.response.body = `<!DOCTYPE html>
 					<html>
 					  <body>
 						<h1>${e.status} - ${Status[e.status]}</h1>
 					  </body>
 					</html>`;
-			  }
+				}
 			} else if (e instanceof Error) {
-			  ctx.response.status = 500;
-			  ctx.response.body = `<!DOCTYPE html>
+				ctx.response.status = 500;
+				ctx.response.body = `<!DOCTYPE html>
 					<html>
 					  <body>
 						<h1>500 - Internal Server Error</h1>
 					  </body>
 					</html>`;
-			  console.log("Unhandled Error:", e.message);
-			  console.log(e.stack);
+				console.log('Unhandled Error:', e.message);
+				console.log(e.stack);
 			}
-		  }
+		}
 	};
 
 	const server = new Server();
 
 	// Logger
 	server.use(logger);
-	server.use(error_handler);
-	server.use(assets_handler);
-	server.use(prerendered_handler);
+	server.use(errorHandler);
+	server.use(assetsHandler);
+	server.use(prerenderedHandler);
 	server.use(serveMain(render));
 
 	return server;

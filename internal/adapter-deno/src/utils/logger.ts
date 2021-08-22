@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
 /**
  * File: logger.js
  * Project: @und3fined/adapter-deno
@@ -13,17 +13,13 @@
 // Importing some console colors
 import { bold, cyan, green, white } from 'https://deno.land/std@0.105.0/fmt/colors.ts';
 
-/**
- * @param {any} ctx
- * @param {any} next
- * 
- * @returns {Promise<any>}
- */
-export default async (ctx, next) => {
+async function logger(ctx: { response: { status: number; }; request: { method: string; url: { pathname: string; }; }; }, next: () => any) {
 	const start = Date.now();
 	await next();
 	const ms = Date.now() - start;
 	console.log(
 		`${bold(white(String(ctx.response.status)))} ${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)} - ${bold(String(`${ms}ms`))}`
 	);
-};
+}
+
+export default logger;
