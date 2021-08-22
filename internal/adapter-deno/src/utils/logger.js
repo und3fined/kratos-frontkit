@@ -10,10 +10,13 @@
  * -----
  * Copyright (c) 2021 und3fined.com
  */
-// Importing some console colors
 import { bold, cyan, green, white } from 'https://deno.land/std@0.105.0/fmt/colors.ts';
 
-async function logger(ctx: { response: { status: number; }; request: { method: string; url: { pathname: string; }; }; }, next: () => any) {
+/**
+ * @param {any} ctx 
+ * @param {() => any} next 
+ */
+async function logger(ctx, next) {
 	const start = Date.now();
 	await next();
 	const ms = Date.now() - start;

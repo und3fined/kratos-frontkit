@@ -19,7 +19,7 @@ import {
 	isHttpError,
 	Status
 } from './deps.ts';
-import logger from './utils/logger.ts';
+import logger from './utils/logger.js';
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const paths = {
