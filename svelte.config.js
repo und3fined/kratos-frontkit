@@ -29,23 +29,29 @@ const config = {
 	],
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#fontkit',
+		// hydrate the <div id="fontkit"> element in src/app.html
+		// target: '#fontkit',
 
 		adapter: adapter({
 			// default options are shown
 			out: 'build'
 		}),
 
-		vite: {
+		// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+		vite: () => ({
+			server: {
+				hmr: {
+					port: 30000,
+				}
+			},
 			resolve: {
 				alias: {
 					$components: resolve(__dirname, './src/lib/components'),
 					$ui: resolve(__dirname, './src/lib/ui'),
 					$utils: resolve(__dirname, './src/lib/utils')
 				}
-			}
-		}
+			},
+		})
 	}
 };
 
