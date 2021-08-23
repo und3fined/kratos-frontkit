@@ -1,2 +1,9 @@
-<script>import "../tailwind.postcss";</script>
-<slot></slot>
+<script lang="ts">
+	import '../tailwind.postcss';
+
+	import SwitchTheme from '$ui/Theme.svelte';
+</script>
+
+<slot />
+
+<SwitchTheme />
