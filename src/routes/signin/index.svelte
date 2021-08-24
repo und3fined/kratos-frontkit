@@ -15,15 +15,15 @@
         <p class="tips">Signin for continue</p>
 
         <div class="signin-form">
-            <Input label="Tài khoản" placeholder="Email hoặc Tên đăng nhập" />
-            <Input label="Mật khẩu" type="password" placeholder="••••••" />
-            <p class="my-4 text-right"><a class="link" href="/recovery">Quên mật khẩu?</a></p>
-            <Button full={true}>Đăng nhập</Button>
+            <Input label="Identity" placeholder="Email or Username" />
+            <Input label="Password" type="password" placeholder="••••••" />
+            <p class="my-4 text-right"><a class="link" href="/recovery">Loss password?</a></p>
+            <Button full={true}>Login</Button>
         </div>
     </div>
     
     <div class="signin-actions">
-        <p>Không có tài khoản? <a class="link" href="/signup">Đăng ký ngay!</a></p>
+        <p>No account? <a class="link" href="/signup">Create an account!</a></p>
     </div>
 </div>
 

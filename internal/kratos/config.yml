@@ -1,0 +1,394 @@
+## Ory Kratos Configuration
+
+## identity ##identity:
+  default_schema_url: file://path/to/identity.traits.schema.json
+
+  schemas:
+    - id: customer
+      url: base64://ewogICIkc2NoZW1hIjogImh0dHA6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQtMDcvc2NoZW1hIyIsCiAgInR5cGUiOiAib2JqZWN0IiwKICAicHJvcGVydGllcyI6IHsKICAgICJiYXIiOiB7CiAgICAgICJ0eXBlIjogInN0cmluZyIKICAgIH0KICB9LAogICJyZXF1aXJlZCI6IFsKICAgICJiYXIiCiAgXQp9
+    - id: employee
+      url: https://foo.bar.com/path/to/employee.traits.schema.json
+    - id: employee-v2
+      url: file://path/to/employee.v2.traits.schema.json
+
+## Data Source Name ##
+dsn: "postgres://user:
+  password@postgresd:5432/database?sslmode=disable&max_conns=20&max_idle_conns=\
+  4"
+
+## selfservice ##
+selfservice:
+  default_browser_return_url: http://localhost:3000/app
+  flows:
+    logout:
+      after:
+        default_browser_return_url: http://localhost:3000/app
+
+    registration:
+      lifespan: 1h
+      before:
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+      after:
+        password:
+          hooks:
+            - hook: session
+          default_browser_return_url: http://localhost:3000/app
+    
+        oidc:
+          hooks:
+            - hook: session
+
+          default_browser_return_url: http://localhost:3000/app
+    
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+
+        default_browser_return_url: http://localhost:3000/app
+  
+      ui_url: http://localhost:3000/signup
+
+    login:
+      lifespan: 1h
+
+      before:
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+      after:
+        password:
+          hooks:
+            - hook: revoke_active_sessions
+          default_browser_return_url: https://my-app.com/dashboard
+
+        oidc:
+          hooks:
+            - hook: revoke_active_sessions
+          default_browser_return_url: https://my-app.com/dashboard
+
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+        default_browser_return_url: https://my-app.com/dashboard
+
+      ui_url: http://localhost:3000/login
+
+    verification:
+      ui_url: http://localhost:3000/verify
+    
+      after:                                
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+                                                        
+        default_browser_return_url: https://my-app.com/dashboard
+                                  
+      lifespan: 1h
+                        
+      enabled: false
+
+    recovery:                              
+      ui_url: https://my-app.com/verify
+    
+      after:                                
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+                                                        
+        default_browser_return_url: https://my-app.com/dashboard
+                                  
+      lifespan: 1h
+                        
+      enabled: false
+
+    error:
+      ui_url: http://localhost:3000/error
+
+    settings:                              
+      lifespan: 1h
+                              
+      privileged_session_max_age: 1h
+    
+      after:        
+        password:                                                
+          hooks:
+            - hook: web_hook
+              config:
+                url: http://a.aaa
+                method: ''
+                auth:
+                  type: api_key
+                  config:
+                    name: ''
+                    value: ''
+                    in: header
+                body: file:///path/to/body.jsonnet
+                                                                                    
+          default_browser_return_url: https://my-app.com/dashboard
+        
+        profile:                                                
+          hooks:
+            - hook: web_hook
+              config:
+                url: http://a.aaa
+                method: ''
+                auth:
+                  type: api_key
+                  config:
+                    name: ''
+                    value: ''
+                    in: header
+                body: file:///path/to/body.jsonnet
+                                                                                    
+          default_browser_return_url: https://my-app.com/dashboard
+                                
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://a.aaa
+              method: ''
+              auth:
+                type: api_key
+                config:
+                  name: ''
+                  value: ''
+                  in: header
+              body: file:///path/to/body.jsonnet
+                                                        
+        default_browser_return_url: https://my-app.com/dashboard
+                              
+      ui_url: https://my-app.com/app/settings
+  methods:
+    link:        
+      config:                                                            
+        lifespan: 1h
+                    
+      enabled: false
+
+    password:        
+      config:                                                
+        haveibeenpwned_enabled: false
+                                                        
+        max_breaches: 0
+                                                
+        ignore_network_errors: false
+                                                
+        haveibeenpwned_host: ''
+                    
+      enabled: false
+
+    oidc:    
+      config:                                        
+        providers:
+          - id: google
+            provider: google
+            client_id: ''
+            client_secret: ''
+            mapper_url: file://path/to/oidc.jsonnet
+            issuer_url: https://accounts.google.com
+            auth_url: https://accounts.google.com/o/oauth2/v2/auth
+            token_url: https://www.googleapis.com/oauth2/v4/token
+            scope:
+              - offline_access
+            tenant: common
+            requested_claims:
+              id_token:
+                email:
+                email_verified:
+            label: ''
+      enabled: false
+    profile:                    
+      enabled: false
+  whitelisted_return_urls:
+    - https://app.my-app.com/dashboard
+    - /dashboard
+    - https://www.my-app.com/
+
+serve:
+  public:
+    base_url: https://my-app.com/
+
+    domain_aliases:
+      - match_domain: localhost
+        base_path: /
+        scheme: http
+    host: ''
+    port: 4433
+    socket:                    
+      group: ''                 
+      mode: 0   
+      owner: ''
+    tls:    
+      cert:                                
+        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...
+        path: path/to/file.pem
+    
+      key:                                
+        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...               
+        path: path/to/file.pem
+
+    cors:                                  
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+        - https://*.foo.example.com          
+      allowed_methods:
+        - POST            
+      allowed_headers:
+        - ''            
+      exposed_headers:
+        - ''
+      allow_credentials: false
+      options_passthrough: false        
+      max_age: 0      
+      debug: false            
+      enabled: false
+  admin:
+    host: ''
+    port: 4434
+    socket:                    
+      group: ''                   
+      mode: 0     
+      owner: ''
+    tls:    
+      cert:                                
+        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...  
+        path: path/to/file.pem
+      key:                                
+        base64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tXG5NSUlEWlRDQ0FrMmdBd0lCQWdJRVY1eE90REFOQmdr...  
+        path: path/to/file.pem
+    base_url: https://kratos.private-network:4434/
+
+tracing:
+  service_name: Ory Kratos
+  providers:
+    zipkin:                    
+      server_url: http://localhost:9411/api/v2/spans
+    jaeger:                          
+      propagation: jaeger
+              
+      sampling:                                
+        type: const              
+        value: 1             
+        server_url: http://localhost:5778/sampling
+      local_agent_address: 127.0.0.1:6831
+  provider: jaeger
+
+log:
+  leak_sensitive_values: false
+  format: json
+  level: trace
+
+secrets:
+  cookie:
+    - ipsumipsumipsumi
+  default:
+    - ipsumipsumipsumi
+
+hashers:
+  argon2:
+    iterations: 1
+    parallelism: 1
+    salt_length: 16
+    key_length: 16
+    expected_duration: 0ns
+    expected_deviation: 0ns
+    dedicated_memory: 0B
+    memory: 0B
+  bcrypt:
+    cost: 4
+  algorithm: argon2
+
+cookies:
+  path: ''
+  same_site: Strict
+  domain: ''
+
+session:
+  cookie:
+    name: ''
+    persistent: false
+    path: ''
+    same_site: Strict
+    domain: ''
+  lifespan: 1h
+
+version: v0.5.0-alpha.1
+
+dev: false
+
+help: false
+
+sqa-opt-out: false
+
+watch-courier: false
+
+expose-metrics-port: 4434
+
+config:
+  - ''
+
+courier:
+  smtp:
+    connection_uri: smtps://foo:bar@my-mailserver:1234/?skip_ssl_verify=false
+
+    from_name: Bob
+
+    from_address: aaa@a.aa
+  template_override_path: /conf/courier-templates
