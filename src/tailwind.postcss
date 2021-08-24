@@ -1,41 +1,11 @@
-@tailwind base;
-/* Write your global styles here, in PostCSS syntax */
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "./styles/base.css";
 
-@layer base {
-    html {
-		--scrollbarBG: #cfd8dc;
-		--thumbBG: #90a4ae;
-	}
-	body::-webkit-scrollbar {
-		width: 11px;
-	}
-	body {
-		scrollbar-width: thin;
-		scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-	}
-	body::-webkit-scrollbar-track {
-		background: var(--scrollbarBG);
-	}
-	body::-webkit-scrollbar-thumb {
-		background-color: var(--thumbBG);
-		border-radius: 6px;
-		border: 3px solid var(--scrollbarBG);
-	}
-	.scrollbar::-webkit-scrollbar {
-		width: 11px;
-	}
-	.scrollbar {
-		scrollbar-width: thin;
-		scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-	}
-	.scrollbar::-webkit-scrollbar-track {
-		background: var(--scrollbarBG);
-	}
-	.scrollbar::-webkit-scrollbar-thumb {
-		background-color: var(--thumbBG);
-		border-radius: 6px;
-		border: 3px solid var(--scrollbarBG);
-	}
-}
+@import "tailwindcss/components";
+@import "./styles/components.css";
+
+@import "tailwindcss/utilities";
+@import "./styles/utilities.css";
+
+/* please add global css to this file*/
+@import "./styles/global.css"

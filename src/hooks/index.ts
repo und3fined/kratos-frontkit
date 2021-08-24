@@ -11,7 +11,7 @@
  */
 import cookie from 'cookie';
 import { nanoid } from 'nanoid/non-secure';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, GetSession } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -31,4 +31,16 @@ export const handle: Handle = async ({ request, resolve }) => {
 	}
 
 	return response;
+};
+
+export const getSession: GetSession = async (request) => {
+	return request.locals.user
+		? {
+			user: {
+				name: request.locals.user.name,
+				email: request.locals.user.email,
+				avatar: request.locals.user.avatar
+			}
+		}
+		: { user: null };
 };

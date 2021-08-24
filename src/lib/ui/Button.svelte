@@ -1,11 +1,30 @@
+<!--
+ | File: Button.svelte
+ | Project: kratos-frontkit
+ | File Created: 20 Aug 2021 14:55:24
+ | Author: und3fined (me@und3fined.com)
+ | -----
+ | Last Modified: 23 Aug 2021 18:51:30
+ | Modified By: und3fined (me@und3fined.com)
+ | -----
+ | Copyright (c) 2021 und3fined.com
+-->
 
+<script lang="ts">
+	export let full: boolean = false;
+
+</script>
+
+<button class="btn-indigo bg-blue-500" class:full>
+	<slot />
+</button>
 
 <style lang="postcss">
-.button {
-    @apply relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
-}
-</style>
+	.btn-indigo {
+		@apply py-2 px-4 font-semibold text-gray-50 rounded-xl shadow-md;
+	}
 
-<button class="button">
-    <slot></slot>
-</button>
+	.full {
+		@apply w-full;
+	}
+</style>

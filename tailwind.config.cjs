@@ -9,16 +9,40 @@
  * -----
  * Copyright (c) 2021 und3fined.com
  */
- const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
 const config = {
 	mode: 'jit',
 	darkMode: 'class',
 	purge: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+		fontFamily: {
+			sans: ['Varela Round', ...fontFamily.sans],
+		},
+		screens: {
+			xs: '512px',
+			sm: '640px',
+			md: '768px',
+			lg: '1024px',
+			xl: '1280px',
+			'2xl': '1536px'
+		},
 		colors: {
+			transparent: 'transparent',
+			current: 'currentColor',
+
+			black: colors.black,
+			white: colors.white,
 			gray: colors.trueGray,
-			teal: colors.teal,
+			red: colors.red,
+			yellow: colors.amber,
+			green: colors.emerald,
+			blue: colors.blue,
+			indigo: colors.indigo,
+			purple: colors.violet,
+			pink: colors.pink,
+			teal: colors.teal
 		},
 		extend: {}
 	},
@@ -26,7 +50,7 @@ const config = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
 		require('@tailwindcss/line-clamp'),
-		require('@tailwindcss/aspect-ratio'),
+		require('@tailwindcss/aspect-ratio')
 	]
 };
 

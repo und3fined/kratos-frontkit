@@ -41,7 +41,7 @@
 	</p>
 </div>
 
-<style>
+<style lang="postcss">
 	.content {
         @apply w-full mt-6 mx-auto mb-0;
 	}

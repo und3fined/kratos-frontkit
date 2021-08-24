@@ -48,7 +48,8 @@ const config = {
 				alias: {
 					$components: resolve(__dirname, './src/lib/components'),
 					$ui: resolve(__dirname, './src/lib/ui'),
-					$utils: resolve(__dirname, './src/lib/utils')
+					$utils: resolve(__dirname, './src/lib/utils'),
+					$stores: resolve(__dirname, './src/lib/stores'),
 				}
 			},
 		})

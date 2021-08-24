@@ -31,6 +31,8 @@
 			"$ui/*": ["src/lib/ui/*"],
 			"$utils": ["src/lib/utils"],
 			"$utils/*": ["src/lib/utils/*"],
+			"$stores": ["src/lib/stores"],
+			"$stores/*": ["src/lib/stores/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]

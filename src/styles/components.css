@@ -1,0 +1,29 @@
+/*
+ * File: components.scss
+ * Project: kratos-frontkit
+ * File Created: 24 Aug 2021 18:03:26
+ * Author: und3fined (me@und3fined.com)
+ * -----
+ * Last Modified: 24 Aug 2021 18:03:27
+ * Modified By: und3fined (me@und3fined.com)
+ * -----
+ * Copyright (c) 2021 und3fined.com
+ */
+
+ @layer components {
+	.scrollbar::-webkit-scrollbar {
+		width: 11px;
+	}
+	.scrollbar {
+		scrollbar-width: thin;
+		scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+	}
+	.scrollbar::-webkit-scrollbar-track {
+		background: var(--scrollbarBG);
+	}
+	.scrollbar::-webkit-scrollbar-thumb {
+		background-color: var(--thumbBG);
+		border-radius: 6px;
+		border: 3px solid var(--scrollbarBG);
+	}
+}
