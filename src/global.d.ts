@@ -1,4 +1,5 @@
 /// <reference types="@sveltejs/kit" />
+/// <reference types="svelte" />
 
 // Module
 declare module '@tailwindcss/typography';

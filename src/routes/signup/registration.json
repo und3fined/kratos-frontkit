@@ -1,0 +1,68 @@
+{
+	"id": "d65f85d3-c3ce-4633-b40f-666ffacc40df",
+	"expiresAt": "2021-08-25T08:46:20.721985237Z",
+	"ui": {
+		"action": "http://127.0.0.1:4433/self-service/registration?flow=d65f85d3-c3ce-4633-b40f-666ffacc40df",
+		"method": "POST",
+		"nodes": [
+			{
+				"type": "input",
+				"group": "default",
+				"attributes": {
+					"name": "csrf_token",
+					"type": "hidden",
+					"value": "tNPr9T++E2XPxhzuKXoAXvDhh2ZUkmSCPl2+IuaBqe0bKQbborA5MHlklt1BRPgLmfXJn9ZtIcu2YeKsrdN+MQ==",
+					"required": true,
+					"disabled": false
+				},
+				"messages": [],
+				"meta": {}
+			},
+			{
+				"type": "input",
+				"group": "password",
+				"attributes": { "name": "traits.email", "type": "email", "disabled": false },
+				"messages": [],
+				"meta": { "label": { "id": 1070002, "text": "E-Mail", "type": "info" } }
+			},
+			{
+				"type": "input",
+				"group": "password",
+				"attributes": {
+					"name": "password",
+					"type": "password",
+					"required": true,
+					"disabled": false
+				},
+				"messages": [],
+				"meta": { "label": { "id": 1070001, "text": "Password", "type": "info" } }
+			},
+			{
+				"type": "input",
+				"group": "password",
+				"attributes": { "name": "traits.name.first", "type": "text", "disabled": false },
+				"messages": [],
+				"meta": { "label": { "id": 1070002, "text": "First Name", "type": "info" } }
+			},
+			{
+				"type": "input",
+				"group": "password",
+				"attributes": { "name": "traits.name.last", "type": "text", "disabled": false },
+				"messages": [],
+				"meta": { "label": { "id": 1070002, "text": "Last Name", "type": "info" } }
+			},
+			{
+				"type": "input",
+				"group": "password",
+				"attributes": {
+					"name": "method",
+					"type": "submit",
+					"value": "password",
+					"disabled": false
+				},
+				"messages": [],
+				"meta": { "label": { "id": 1040001, "text": "Sign up", "type": "info", "context": {} } }
+			}
+		]
+	}
+}

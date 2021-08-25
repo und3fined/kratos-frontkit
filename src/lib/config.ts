@@ -10,7 +10,7 @@
  * Copyright (c) 2021 und3fined.com
  */
 export const config = {
-	baseUrl: import.meta.env.VITE_BASE_URL
+	baseUrl: import.meta.env.VITE_BASE_URL,
 };
 
 export const siteSeoBase = {

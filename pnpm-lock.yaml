@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ory/kratos-client': ^0.7.1-alpha.2
   '@sveltejs/adapter-netlify': ^1.0.0-next.0
   '@sveltejs/adapter-node': ^1.0.0-next.0
   '@sveltejs/adapter-static': ^1.0.0-next.0
@@ -38,6 +39,7 @@ dependencies:
   nanoid: 3.1.25
 
 devDependencies:
+  '@ory/kratos-client': 0.7.1-alpha.2
   '@sveltejs/adapter-netlify': 1.0.0-next.0
   '@sveltejs/adapter-node': 1.0.0-next.0
   '@sveltejs/adapter-static': 1.0.0-next.0
@@ -148,6 +150,14 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.12.0
+    dev: true
+
+  /@ory/kratos-client/0.7.1-alpha.2:
+    resolution: {integrity: sha512-HeNNQqO4Go8ugU3EGSfGu2QCdz7BBSc6eQH2HoL1JibmAOX4ZdPuQGudUKmBh7j2fP6oe0rhs5rPti81f97E+g==}
+    dependencies:
+      axios: 0.21.1
+    transitivePeerDependencies:
+      - debug
     dev: true
 
   /@rollup/pluginutils/4.1.1:
@@ -508,6 +518,14 @@ packages:
       normalize-range: 0.1.2
       postcss: 8.3.6
       postcss-value-parser: 4.1.0
+    dev: true
+
+  /axios/0.21.1:
+    resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
+    dependencies:
+      follow-redirects: 1.14.2
+    transitivePeerDependencies:
+      - debug
     dev: true
 
   /balanced-match/1.0.2:
@@ -1145,6 +1163,16 @@ packages:
 
   /flatted/3.2.2:
     resolution: {integrity: sha512-JaTY/wtrcSyvXJl4IMFHPKyFur1sE9AUqc0QnhOaJ0CxHtAoIV8pYDzeEfAaNEtGkOfq4gr3LBFmdXW5mOQFnA==}
+    dev: true
+
+  /follow-redirects/1.14.2:
+    resolution: {integrity: sha512-yLR6WaE2lbF0x4K2qE2p9PEXKLDjUjnR/xmjS3wHAYxtlsI9MLLBJUZirAHKzUZDGLxje7w/cXR49WOUo4rbsA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     dev: true
 
   /fraction.js/4.1.1:

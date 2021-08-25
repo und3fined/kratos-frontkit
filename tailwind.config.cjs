@@ -13,7 +13,7 @@ const colors = require('tailwindcss/colors');
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 const config = {
-	mode: 'jit',
+	// mode: 'jit',
 	darkMode: 'class',
 	purge: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {

@@ -45,6 +45,6 @@
     }
 
     .link {
-		@apply text-blue-500 active:text-blue-500;
+		/* @apply text-blue-500 active:text-blue-500; */
 	}
 </style>

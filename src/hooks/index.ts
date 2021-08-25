@@ -11,7 +11,7 @@
  */
 import cookie from 'cookie';
 import { nanoid } from 'nanoid/non-secure';
-import type { Handle, GetSession } from '@sveltejs/kit';
+import type { Handle, GetSession, ExternalFetch } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -44,3 +44,15 @@ export const getSession: GetSession = async (request) => {
 		}
 		: { user: null };
 };
+
+export const externalFetch: ExternalFetch = async (request) => {
+	if (request.url.startsWith('https://api.yourapp.com/')) {
+		// clone the original request, but change the URL
+		request = new Request(
+			request.url.replace('https://api.yourapp.com/', 'http://localhost:9999/'),
+			request
+		);
+	}
+
+	return fetch(request);
+}
