@@ -33,7 +33,7 @@
 
 <style lang="postcss">
 	.form-input {
-		@apply my-6 flex rounded-md shadow-sm;
+		@apply my-6 flex shadow-sm;
 	}
 
 	.form-input label {
@@ -41,7 +41,7 @@
 	}
 
 	.form-input input {
-		@apply flex-1 block w-full border-0 rounded-xl sm:text-sm bg-gray-800;
+		@apply flex-1 block w-full border-0 rounded-lg sm:text-sm bg-gray-800;
 	}
 
 	.form-input.inline {

@@ -6,6 +6,7 @@
 		"build": "svelte-kit build",
 		"preview": "svelte-kit preview",
 		"kratos": "kratos serve --config $INIT_CWD/internal/kratos/kratos.yml",
+		"deno": "deno run --allow-env --allow-read --allow-net build/app.js",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
