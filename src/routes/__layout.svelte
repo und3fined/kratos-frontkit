@@ -16,7 +16,7 @@
 	$: pathLocation = currentHref;
 </script>
 
-<div class="app-layout" class:dark={isDark}>
+<div class="app-layout container mx-auto" class:dark={isDark}>
 	<div class="layout-container">
 		<div class="brand">
 			<div class="logo">
@@ -37,7 +37,7 @@
 
 <style lang="postcss">
 	.app-layout {
-		@apply min-h-screen flex items-center justify-center;
+		@apply container mx-auto min-h-screen flex items-center justify-center ;
 	}
 
 	.layout-container {
